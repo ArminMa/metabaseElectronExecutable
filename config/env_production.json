@@ -1,0 +1,19 @@
+{
+  "name": "production",
+  "description": "Add here any environment specific stuff you like.",
+  "osx" : {
+    "title": "my-awesome-app",
+    "background": "assets/osx/installer.png",
+    "icon": "assets/osx/mount.icns",
+    "icon-size": 80,
+    "contents": [
+      { "x": 438, "y": 344, "type": "link", "path": "/OSX" },
+      { "x": 192, "y": 344, "type": "file" }
+    ]
+  },
+  "win" : {
+    "title" : "LundaL",
+    "icon" : "resources/frontend_client/favicon.ico",
+    "nsiTemplate" : "dist/nsi-template/win/installer.nsi.tpl"
+  }
+}
