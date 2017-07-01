@@ -46,3 +46,4 @@ bin/release/aws-eb/metabase-aws-eb.zip
 /test-report-*
 */node_modules
 dist
+dist/*
