@@ -1,0 +1,38 @@
+import _ from "underscore";
+import moment from "moment";
+
+import { AngularResourceProxy, createThunkAction } from "metabase/lib/redux";
+
+// resource wrappers
+const ActivityApi = new AngularResourceProxy("Activity", ["list", "recent_views"]);
+
+
+// action constants
+export const FETCH_ACTIVITY = 'FETCH_ACTIVITY';
+export const FETCH_RECENT_VIEWS = 'FETCH_RECENT_VIEWS';
+
+
+// action creators
+
+export const fetchActivity = createThunkAction(FETCH_ACTIVITY, function() {
+    return async function(dispatch, getState) {
+        let activity = await ActivityApi.list();
+        for (var ai of activity) {
+            ai.timestamp = moment(ai.timestamp);
+            ai.hasLinkableModel = function() {
+                return (_.contains(["card", "dashboard"], this.model));
+            };
+        }
+        return activity;
+    };
+});
+
+export const fetchRecentViews = createThunkAction(FETCH_RECENT_VIEWS, function() {
+    return async function(dispatch, getState) {
+        let recentViews = await ActivityApi.recent_views();
+        for (var v of recentViews) {
+            v.timestamp = moment(v.timestamp);
+        }
+        return recentViews;
+    };
+});
